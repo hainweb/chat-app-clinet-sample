@@ -8,6 +8,27 @@ import router from './rotues';
 import { Provider } from 'react-redux'
 import { store } from './redux/store';
 
+import io from 'socket.io-client';
+
+const socket = io(BACKEND_URL, {
+  withCredentials: true,
+  transports: ['websocket', 'polling']
+});
+
+socket.on('connect_error', (error) => {
+  console.error('Connection error:', error);
+  // Implement reconnection logic here
+});
+
+socket.on('disconnect', (reason) => {
+  console.log('Disconnected:', reason);
+  if (reason === 'io server disconnect') {
+    // The disconnection was initiated by the server, reconnect manually
+    socket.connect();
+  }
+  // Else the socket will automatically try to reconnect
+});
+
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
