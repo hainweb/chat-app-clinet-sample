@@ -2,12 +2,7 @@ import logo from './logo.svg';
 import './App.css';
 import { Outlet } from 'react-router-dom';
 import toast, { Toaster } from 'react-hot-toast';
-import io from 'socket.io-client';
 
-const socket = io(process.env.REACT_APP_BACKEND_URL, {
-  withCredentials: true,
-  transports: ['websocket', 'polling']
-});
 
 function App() {
   return (
