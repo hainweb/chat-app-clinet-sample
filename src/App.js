@@ -4,7 +4,7 @@ import { Outlet } from 'react-router-dom';
 import toast, { Toaster } from 'react-hot-toast';
 import io from 'socket.io-client';
 
-const socket = io(BACKEND_URL, {
+const socket = io(REACT_APP_BACKEND_URL, {
   withCredentials: true,
   transports: ['websocket', 'polling']
 });
