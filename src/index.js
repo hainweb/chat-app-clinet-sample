@@ -9,24 +9,20 @@ import { Provider } from 'react-redux'
 import { store } from './redux/store';
 
 import io from 'socket.io-client';
-
+// Client-side
 const socket = io(process.env.REACT_APP_BACKEND_URL, {
   withCredentials: true,
-  transports: ['websocket', 'polling']
+  transports: ['polling'],
+  reconnectionAttempts: 5,
+  reconnectionDelay: 1000
 });
 
 socket.on('connect_error', (error) => {
   console.error('Connection error:', error);
-  // Implement reconnection logic here
 });
 
 socket.on('disconnect', (reason) => {
   console.log('Disconnected:', reason);
-  if (reason === 'io server disconnect') {
-    // The disconnection was initiated by the server, reconnect manually
-    socket.connect();
-  }
-  // Else the socket will automatically try to reconnect
 });
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
