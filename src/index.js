@@ -10,7 +10,7 @@ import { store } from './redux/store';
 
 import io from 'socket.io-client';
 
-const socket = io(BACKEND_URL, {
+const socket = io(process.env.REACT_APP_BACKEND_URL, {
   withCredentials: true,
   transports: ['websocket', 'polling']
 });
